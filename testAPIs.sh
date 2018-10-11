@@ -20,9 +20,9 @@ echo
 #   otherwise, keep it as http://localhost:3000/token
 ####################################################################
 ORG1_TOKEN=$(curl -s -X POST \
-  http://localhost:3000/token \
+  http://localhost:3000/users \
   -H "content-type: application/x-www-form-urlencoded" \
-  -d 'username=TestUser&orgName=org1')
+  -d 'username=TestUser2&orgName=org1')
 echo $ORG1_TOKEN
 ORG1_TOKEN=$(echo $ORG1_TOKEN | jq ".token" | sed "s/\"//g")
 echo
@@ -31,7 +31,7 @@ echo
 echo "POST invoke chaincode on peers of Org1"
 echo
 TRX_ID=$(curl -s -X POST \
-  http://localhost:3000/channels/defaultchannel/chaincodes/mycc \
+  http://localhost:3000/channels/defaultchannel/chaincodes/blooms \
   -H "authorization: Bearer $ORG1_TOKEN" \
   -H "content-type: application/json" \
   -d '{
@@ -46,37 +46,12 @@ echo
 echo "GET read chaincode on peer1 of Org1"
 echo
 curl -s -X GET \
-  "http://localhost:3000/channels/defaultchannel/chaincodes/mycc?fcn=read&args=%5B%22test_key%22%5D" \
+  "http://localhost:3000/channels/defaultchannel/chaincodes/blooms?fcn=read&args=%5B%22test_key%22%5D" \
   -H "authorization: Bearer $ORG1_TOKEN" \
   -H "content-type: application/json"
 echo
 echo
 TRX_ID=$(echo $TRX_ID | jq ".txid" | sed "s/\"//g")
-
-#echo "POST Adding a test factor"
-#echo
-#TRX_ID=$(curl -s -X POST \
-#  http://localhost:3000/channels/defaultchannel/chaincodes/mycc \
-#  -H "authorization: Bearer $ORG1_TOKEN" \
-#  -H "content-type: application/json" \
-#  -d '{
-#	"fcn":"storeFactor",
-#	"args":["{\"address\" : \"1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX\", \"email\" : \"lbathen@gmail.com\", \"type\" : \"facial\", \"payload\" : [\"1/1011000100000001\", \"2/1011000100000001\", \"3/1011000100000001\"]}"]
-#}')
-#echo "Transacton ID is $TRX_ID"
-#echo
-#echo
-
-#echo "GET query a factor on peer1 of Org1"
-#echo
-#curl -s -X GET \
-#  "http://localhost:3000/channels/defaultchannel/chaincodes/mycc?peer=peer1&fcn=getFactor&args=%5B%221F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX%22%5D" \
-#  -H "authorization: Bearer $ORG1_TOKEN" \
-#  -H "content-type: application/json"
-#echo
-#echo
-
-#exit 0
 
 echo "GET query Block by blockNumber"
 echo
@@ -147,7 +122,7 @@ echo
 echo "GET query Instantiated chaincodes"
 echo
 curl -s -X GET \
-  "http://localhost:3000/channels/mycc/chaincodes" \
+  "http://localhost:3000/channels/blooms/chaincodes" \
   -H "authorization: Bearer $ORG1_TOKEN" \
   -H "content-type: application/json"
 echo
