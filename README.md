@@ -49,7 +49,6 @@ cd ibps_connector
 ```
 
 ## Step 2. Enroll App
- ![packageFile](/docs/enrollAdmin.gif)
 
 First, we need to generate the necessary keys and certs from the Certificate Authority to prove our authenticity to the network.
 To do this, we will go into our new IBM Blockchain Starter Plan network, and from the `Overview` Tab on the left, we will click on `Connection Profile` on the right-side of the page. Then click on `Raw JSON`.
@@ -106,7 +105,9 @@ node app
 Next, you can exercise the server by running the `testAPI.sh` script. There
 are a few things that need to be tweaked before hand.
 
-### 6.1 - If there is no `admin` registered, the service will register the `admin` user for you. You may then use the get token endpoint to perform administrative tasks.
+### 6.1 User Management
+
+If there is no `admin` registered, the service will register the `admin` user for you. You may then use the get token endpoint to perform administrative tasks.
 
 You can register new users via the `users` url:
 
@@ -138,7 +139,9 @@ echo
 echo "ORG1 token is $ORG1_TOKEN"
 ```
 
-### 6.2 - Assuming you have a default channel called `defaultchannel`, make sure that all `curl` calls use the right channel during invocation.
+### 6.2 Set Channel Name
+
+Assuming you have a default channel called `defaultchannel`, make sure that all `curl` calls use the right channel during invocation.
 
 For example:
 
@@ -146,7 +149,9 @@ For example:
 http://localhost:3000/channels/defaultchannel/chaincodes/blooms
 ```
 
-### 6.3 - Next, we need to make sure that the chaincode name is updated, for instance, if your target chaincode is `mycc`, make sure that all calls that require some interaction with the chaincode have `mycc` (replace it with your chaincode name).
+### 6.3 Set Chaincode Name
+
+Next, we need to make sure that the chaincode name is updated, for instance, if your target chaincode is `mycc`, make sure that all calls that require some interaction with the chaincode have `mycc` (replace it with your chaincode name).
 
 For example:
 
