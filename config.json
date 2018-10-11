@@ -1,0 +1,11 @@
+{
+    "channelName" : "defaultchannel",
+    "peerName" : "org1-peer1",
+    "chaincodeId" : "mycc",
+    "adminId" : "admin",
+    "adminSecret" : "1dcab332aa",
+    "orgId" : "org1",
+    "orgCAName" : "org1CA",
+    "endpointURL" : "nde288ef7dd7542d3a1cc824a02be67f1-org1-ca.us02.blockchain.ibm.com:31011",
+    "keyStoreName" : "hfc-key-store"
+}
