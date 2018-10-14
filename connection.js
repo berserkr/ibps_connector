@@ -278,17 +278,17 @@ class IBPConnecton {
                     return userCreds;
                 }
             } else if(userCreds && !userCreds.isEnrolled()) {
-                throw new Error(`User ${user} is not enrolled. \
-                    Please delete user and re-enroll.`);
+                logger.error(`User ${user} is not enrolled. Please delete user and re-enroll.`);
+                throw new Error(`User ${user} is not enrolled. Please delete user and re-enroll.`);
             } 
             else {
-                throw new Error(`Failed to get ${user}.... \
-                    run <url to service>/registerUser`);
+                logger.error(`Failed to get ${user}, run <url to service:port>/users`);
+                throw new Error(`Failed to get ${user}, run <url to service:port>/users`);
             }
         }).catch((err) => {
             logger.error('Failed to get user credentials. Error: ' + 
                 err.stack ? err.stack : err);
-            throw new Error('Failed to get user credentials.');
+            throw new Error(`Failed to get ${user}.... run <url to service:port>/users`);
         });
     } // end getUserCreds
 
@@ -570,6 +570,14 @@ class IBPConnecton {
             }).catch((err) => {
                 message = 'Failed to invoke successfully :: ' + err;
                 logger.error(message);
+
+                var response = {
+                    status : status,
+                    message: message
+                }
+        
+                return response;
+                
             });
         }
         else {
